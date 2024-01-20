@@ -1,0 +1,10 @@
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\bin\Debug\MapleBossWinApp.exe.config
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\bin\Debug\MapleBossWinApp.exe
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\bin\Debug\MapleBossWinApp.pdb
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.csproj.AssemblyReference.cache
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.Properties.Resources.resources
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.csproj.GenerateResource.cache
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.csproj.CoreCompileInputs.cache
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.exe
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.pdb
+C:\Users\bso94\Desktop\프로그램개발\MapleBossGuide\MapleBossWinApp\MapleBossWinApp\obj\Debug\MapleBossWinApp.MainForm.resources
