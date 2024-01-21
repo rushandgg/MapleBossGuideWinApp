@@ -127,6 +127,8 @@ namespace MapleBossWinApp
             // 난이도의 인덱스로 배열 만듬, 배열로 comboBox의 목록 표시
             string[] selectedDifficultyArray = selectedDifficultyList.ToArray();
             DifficultyComboBox.Items.AddRange(selectedDifficultyArray);
+
+            DifficultyComboBox.Text = selectedDifficultyArray[0];
         }
 
         private void HeroListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -169,6 +171,21 @@ namespace MapleBossWinApp
                     }
                 }
             }
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            MainTabControl.SelectedTab = MainTabControl.TabPages[0];
+        }
+
+        private void ListButton_Click(object sender, EventArgs e)
+        {
+            MainTabControl.SelectedTab = MainTabControl.TabPages[1];
+        }
+
+        private void ManageButton_Click(object sender, EventArgs e)
+        {
+            MainTabControl.SelectedTab = MainTabControl.TabPages[2];
         }
     }
 }
