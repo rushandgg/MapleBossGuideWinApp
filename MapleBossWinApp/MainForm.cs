@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MapleStory.OpenAPI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,10 +7,14 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MapleStory.OpenAPI;
+using System.Security.Permissions;
+using MapleStory.OpenAPI.Dto;
 
 namespace MapleBossWinApp
 {
@@ -19,7 +24,11 @@ namespace MapleBossWinApp
         List<String> bossNameList = new List<string>();
         List<String> bossPriceList = new List<string>();
 
-        int heroNo = 0;
+        public int heroNo = 0;
+        public string characterName = "";
+        public string characterClass = "";
+        public int characterLevel = 0;
+        public string characterBattle = "";
 
         public MainForm()
         {
@@ -31,59 +40,68 @@ namespace MapleBossWinApp
             if (BossNameComboBox.Text.Length > 0 && DifficultyComboBox.Text.Length > 0)
             {
                 // 입력 받은 캐릭터명과 최대보스 정보를 가져옴
+                string apiKey = APIKeyTextBox.Text;
                 string heroName = HeroTextBox.Text; // 캐릭터명
-                string maxBossName = BossNameComboBox.Text; // 최대로 잡을 수 있는 보스
-                string maxBossDfficulty = DifficultyComboBox.Text; // 보스 난이도
 
-
-                // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
-                int isClear = 0;
-                double totalBossPrice = 0;
-
-                List<String> clearBossList = new List<string>();
-                for (int i = bossNameList.Count - 1; i >= 0; i--)
-                {
-                    string bossName = bossNameList[i];
-                    string difficulty = difficultyList[i];
-                    double bossPrice = Convert.ToInt32(bossPriceList[i]);
-
-                    if (maxBossName == bossName && maxBossDfficulty == difficulty) // 최대보스부터 카운트
-                    {
-                        isClear = 1;
-                    }
-                    if (isClear == 1 && clearBossList.Contains(bossName) == false) // 잡을 수 있는 보스이면서 이미 깬 보스가 아니라면
-                    {
-                        clearBossList.Add(bossNameList[i]); // 잡은 보스 리스트에 추가
-                        totalBossPrice += bossPrice;
-                    }
-                }
-
-                // 집계된 내용을 ListView에 추가함
-                heroNo += 1;
-                ListViewItem item = new ListViewItem(heroNo.ToString());
-                item.SubItems.Add(heroName);
-                item.SubItems.Add(maxBossName);
-                item.SubItems.Add(maxBossDfficulty);
-                item.SubItems.Add(clearBossList.Count.ToString());
-
-                totalBossPrice = totalBossPrice / 100000000;
-                double totalBossPrice2 = Math.Round(totalBossPrice, 2);
-                item.SubItems.Add(totalBossPrice2.ToString() + "억");
-
-                HeroListView.Items.Add(item);
+                CharacterAdd characterAdd = new CharacterAdd(this);
+                characterAdd.BasicInfo(apiKey, heroName);
             }
             else
             {
                 MessageBox.Show("다시 입력해주세요.");
             }
-            
+        }
+
+        public void HeroListViewAdd()
+        {
+            // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
+            int isClear = 0;
+            double totalBossPrice = 0;
+            string maxBossName = BossNameComboBox.Text; // 최대로 잡을 수 있는 보스
+            string maxBossDfficulty = DifficultyComboBox.Text; // 보스 난이도
+
+            List<String> clearBossList = new List<string>();
+            for (int i = bossNameList.Count - 1; i >= 0; i--)
+            {
+                string bossName = bossNameList[i];
+                string difficulty = difficultyList[i];
+                double bossPrice = Convert.ToInt32(bossPriceList[i]);
+
+                if (maxBossName == bossName && maxBossDfficulty == difficulty) // 최대보스부터 카운트
+                {
+                    isClear = 1;
+                }
+                if (isClear == 1 && clearBossList.Contains(bossName) == false) // 잡을 수 있는 보스이면서 이미 깬 보스가 아니라면
+                {
+                    clearBossList.Add(bossNameList[i]); // 잡은 보스 리스트에 추가
+                    totalBossPrice += bossPrice;
+                }
+            }
+
+            // 집계된 내용을 ListView에 추가함
+            ListViewItem item = new ListViewItem(heroNo.ToString());
+            item.SubItems.Add(characterName);
+            item.SubItems.Add(characterClass);
+            item.SubItems.Add(characterLevel.ToString());
+            item.SubItems.Add(characterBattle);
+            item.SubItems.Add(maxBossName);
+            item.SubItems.Add(maxBossDfficulty);
+            item.SubItems.Add(clearBossList.Count.ToString());
+
+            totalBossPrice /= 100000000;
+            double totalBossPrice2 = Math.Round(totalBossPrice, 2);
+            item.SubItems.Add(totalBossPrice2.ToString() + "억");
+
+            HeroListView.Items.Add(item);
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string csvFilePath = Path.Combine("BossList", "BossListMaster.csv");
             // 프로그램을 실행할 때 마다 결정석 값 목록을 로드한다.
-            StreamReader sr = new StreamReader("BossListMaster.csv", Encoding.Default);
+            // StreamReader sr = new StreamReader(csvFilePath, Encoding.Default);
+            StreamReader sr = new StreamReader("C:\\Users\\bso94\\Desktop\\BossListMaster.txt", Encoding.GetEncoding("UTF-8"));
 
             while (!sr.EndOfStream)
             {
@@ -93,7 +111,7 @@ namespace MapleBossWinApp
                 string[] data = line.Split(',');
                 difficultyList.Add(data[0]);
                 bossNameList.Add(data[1]);
-                bossPriceList.Add(data[2]);
+                bossPriceList.Add(data[2].Replace(",", ""));
             }
 
             // 목록 추가 부분의 ComboBox 아이템 추가
@@ -123,7 +141,6 @@ namespace MapleBossWinApp
                     }
                 }
             }
-            
             // 난이도의 인덱스로 배열 만듬, 배열로 comboBox의 목록 표시
             string[] selectedDifficultyArray = selectedDifficultyList.ToArray();
             DifficultyComboBox.Items.AddRange(selectedDifficultyArray);
@@ -138,8 +155,8 @@ namespace MapleBossWinApp
             {
                 // 입력 받은 캐릭터명과 최대보스 정보를 가져옴
                 int SelectRow = HeroListView.SelectedItems[0].Index;
-                string maxBossName = HeroListView.Items[SelectRow].SubItems[2].Text; // 최대로 잡을 수 있는 보스
-                string maxBossDiffculty = HeroListView.Items[SelectRow].SubItems[3].Text;
+                string maxBossName = HeroListView.Items[SelectRow].SubItems[5].Text; // 최대로 잡을 수 있는 보스
+                string maxBossDiffculty = HeroListView.Items[SelectRow].SubItems[6].Text;
 
                 // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
                 int isClear = 0;
