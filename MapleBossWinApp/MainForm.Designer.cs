@@ -30,9 +30,6 @@
         {
             MainTabControl = new System.Windows.Forms.TabControl();
             TabPage1 = new System.Windows.Forms.TabPage();
-            dataGridView1 = new System.Windows.Forms.DataGridView();
-            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             CharacterLoadButton = new System.Windows.Forms.Button();
             SelectedHeroNumLabel = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
@@ -56,10 +53,15 @@
             label7 = new System.Windows.Forms.Label();
             CharacterTextBox = new System.Windows.Forms.TextBox();
             label6 = new System.Windows.Forms.Label();
-            APIKeyTextBox = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             TabPage2 = new System.Windows.Forms.TabPage();
             groupBox4 = new System.Windows.Forms.GroupBox();
+            BossDataGridView = new System.Windows.Forms.DataGridView();
+            bossNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            difficultyCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            partyNumCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            deleteCol = new System.Windows.Forms.DataGridViewButtonColumn();
             BossListView = new System.Windows.Forms.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -73,7 +75,7 @@
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             groupBox2 = new System.Windows.Forms.GroupBox();
-            textBox1 = new System.Windows.Forms.TextBox();
+            APIKeyTextBox = new System.Windows.Forms.TextBox();
             label10 = new System.Windows.Forms.Label();
             DifficultyComboBox = new System.Windows.Forms.ComboBox();
             BossNameComboBox = new System.Windows.Forms.ComboBox();
@@ -93,9 +95,7 @@
             stoneNum = new System.Windows.Forms.ColumnHeader();
             stoneTotalPrice = new System.Windows.Forms.ColumnHeader();
             TabPage3 = new System.Windows.Forms.TabPage();
-            StartButton = new System.Windows.Forms.Button();
-            ListButton = new System.Windows.Forms.Button();
-            ManageButton = new System.Windows.Forms.Button();
+            button3 = new System.Windows.Forms.Button();
             listView1 = new System.Windows.Forms.ListView();
             columnHeader17 = new System.Windows.Forms.ColumnHeader();
             columnHeader18 = new System.Windows.Forms.ColumnHeader();
@@ -108,11 +108,14 @@
             columnHeader25 = new System.Windows.Forms.ColumnHeader();
             columnHeader26 = new System.Windows.Forms.ColumnHeader();
             columnHeader27 = new System.Windows.Forms.ColumnHeader();
+            StartButton = new System.Windows.Forms.Button();
+            ListButton = new System.Windows.Forms.Button();
+            ManageButton = new System.Windows.Forms.Button();
             MainTabControl.SuspendLayout();
             TabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             TabPage2.SuspendLayout();
             groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BossDataGridView).BeginInit();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -133,7 +136,6 @@
             // 
             // TabPage1
             // 
-            TabPage1.Controls.Add(dataGridView1);
             TabPage1.Controls.Add(CharacterLoadButton);
             TabPage1.Controls.Add(SelectedHeroNumLabel);
             TabPage1.Controls.Add(label12);
@@ -147,7 +149,6 @@
             TabPage1.Controls.Add(label7);
             TabPage1.Controls.Add(CharacterTextBox);
             TabPage1.Controls.Add(label6);
-            TabPage1.Controls.Add(APIKeyTextBox);
             TabPage1.Controls.Add(label5);
             TabPage1.Location = new System.Drawing.Point(4, 29);
             TabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -157,34 +158,6 @@
             TabPage1.TabIndex = 0;
             TabPage1.Text = "tabPage1";
             TabPage1.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2 });
-            dataGridView1.Location = new System.Drawing.Point(903, 33);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new System.Drawing.Size(371, 101);
-            dataGridView1.TabIndex = 15;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Column1";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            Column1.Width = 125;
-            // 
-            // Column2
-            // 
-            Column2.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            Column2.HeaderText = "Column2";
-            Column2.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6" });
-            Column2.MaxDropDownItems = 6;
-            Column2.MinimumWidth = 6;
-            Column2.Name = "Column2";
-            Column2.Width = 125;
             // 
             // CharacterLoadButton
             // 
@@ -360,14 +333,6 @@
             label6.TabIndex = 2;
             label6.Text = "캐릭터명";
             // 
-            // APIKeyTextBox
-            // 
-            APIKeyTextBox.Location = new System.Drawing.Point(156, 32);
-            APIKeyTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            APIKeyTextBox.Name = "APIKeyTextBox";
-            APIKeyTextBox.Size = new System.Drawing.Size(286, 27);
-            APIKeyTextBox.TabIndex = 1;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -394,6 +359,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(BossDataGridView);
             groupBox4.Controls.Add(BossListView);
             groupBox4.Location = new System.Drawing.Point(793, 169);
             groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -404,11 +370,65 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "캐릭별 보스 목록";
             // 
+            // BossDataGridView
+            // 
+            BossDataGridView.AllowUserToAddRows = false;
+            BossDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            BossDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { bossNameCol, difficultyCol, partyNumCol, priceCol, deleteCol });
+            BossDataGridView.Location = new System.Drawing.Point(15, 32);
+            BossDataGridView.Name = "BossDataGridView";
+            BossDataGridView.RowHeadersWidth = 51;
+            BossDataGridView.RowTemplate.Height = 29;
+            BossDataGridView.Size = new System.Drawing.Size(607, 247);
+            BossDataGridView.TabIndex = 16;
+            BossDataGridView.CellContentClick += BossDataGridView_CellContentClick;
+            BossDataGridView.CellValueChanged += BossDataGridView_CellValueChanged;
+            // 
+            // bossNameCol
+            // 
+            bossNameCol.HeaderText = "보스명";
+            bossNameCol.MinimumWidth = 6;
+            bossNameCol.Name = "bossNameCol";
+            bossNameCol.Width = 125;
+            // 
+            // difficultyCol
+            // 
+            difficultyCol.HeaderText = "난이도";
+            difficultyCol.Items.AddRange(new object[] { "이지", "노멀", "하드", "카오스" });
+            difficultyCol.MaxDropDownItems = 3;
+            difficultyCol.MinimumWidth = 6;
+            difficultyCol.Name = "difficultyCol";
+            difficultyCol.Width = 80;
+            // 
+            // partyNumCol
+            // 
+            partyNumCol.HeaderText = "파티수";
+            partyNumCol.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6" });
+            partyNumCol.MaxDropDownItems = 6;
+            partyNumCol.MinimumWidth = 6;
+            partyNumCol.Name = "partyNumCol";
+            partyNumCol.Width = 60;
+            // 
+            // priceCol
+            // 
+            priceCol.HeaderText = "결정석값";
+            priceCol.MinimumWidth = 6;
+            priceCol.Name = "priceCol";
+            priceCol.Width = 125;
+            // 
+            // deleteCol
+            // 
+            deleteCol.HeaderText = "삭제";
+            deleteCol.MinimumWidth = 6;
+            deleteCol.Name = "deleteCol";
+            deleteCol.Text = "삭제";
+            deleteCol.Width = 80;
+            // 
             // BossListView
             // 
             BossListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6 });
             BossListView.GridLines = true;
-            BossListView.Location = new System.Drawing.Point(18, 32);
+            BossListView.Location = new System.Drawing.Point(15, 286);
             BossListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             BossListView.Name = "BossListView";
             BossListView.Size = new System.Drawing.Size(607, 536);
@@ -496,7 +516,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(textBox1);
+            groupBox2.Controls.Add(APIKeyTextBox);
             groupBox2.Controls.Add(label10);
             groupBox2.Controls.Add(DifficultyComboBox);
             groupBox2.Controls.Add(BossNameComboBox);
@@ -513,13 +533,13 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "보스 내용기입";
             // 
-            // textBox1
+            // APIKeyTextBox
             // 
-            textBox1.Location = new System.Drawing.Point(130, 28);
-            textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(286, 27);
-            textBox1.TabIndex = 8;
+            APIKeyTextBox.Location = new System.Drawing.Point(127, 32);
+            APIKeyTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            APIKeyTextBox.Name = "APIKeyTextBox";
+            APIKeyTextBox.Size = new System.Drawing.Size(286, 27);
+            APIKeyTextBox.TabIndex = 8;
             // 
             // label10
             // 
@@ -658,6 +678,7 @@
             // 
             // TabPage3
             // 
+            TabPage3.Controls.Add(button3);
             TabPage3.Controls.Add(listView1);
             TabPage3.Location = new System.Drawing.Point(4, 29);
             TabPage3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -668,38 +689,15 @@
             TabPage3.Text = "tabPage3";
             TabPage3.UseVisualStyleBackColor = true;
             // 
-            // StartButton
+            // button3
             // 
-            StartButton.Location = new System.Drawing.Point(0, 0);
-            StartButton.Margin = new System.Windows.Forms.Padding(0);
-            StartButton.Name = "StartButton";
-            StartButton.Size = new System.Drawing.Size(187, 92);
-            StartButton.TabIndex = 8;
-            StartButton.Text = "1. 시작하기";
-            StartButton.UseVisualStyleBackColor = true;
-            StartButton.Click += StartButton_Click;
-            // 
-            // ListButton
-            // 
-            ListButton.Location = new System.Drawing.Point(0, 88);
-            ListButton.Margin = new System.Windows.Forms.Padding(0);
-            ListButton.Name = "ListButton";
-            ListButton.Size = new System.Drawing.Size(187, 92);
-            ListButton.TabIndex = 9;
-            ListButton.Text = "2. 리스트 확인";
-            ListButton.UseVisualStyleBackColor = true;
-            ListButton.Click += ListButton_Click;
-            // 
-            // ManageButton
-            // 
-            ManageButton.Location = new System.Drawing.Point(0, 177);
-            ManageButton.Margin = new System.Windows.Forms.Padding(0);
-            ManageButton.Name = "ManageButton";
-            ManageButton.Size = new System.Drawing.Size(187, 92);
-            ManageButton.TabIndex = 10;
-            ManageButton.Text = "3. 캐릭터 관리";
-            ManageButton.UseVisualStyleBackColor = true;
-            ManageButton.Click += ManageButton_Click;
+            button3.Location = new System.Drawing.Point(20, 44);
+            button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(112, 49);
+            button3.TabIndex = 2;
+            button3.Text = "추가";
+            button3.UseVisualStyleBackColor = true;
             // 
             // listView1
             // 
@@ -764,6 +762,39 @@
             // 
             columnHeader27.Text = "스타포스";
             // 
+            // StartButton
+            // 
+            StartButton.Location = new System.Drawing.Point(0, 0);
+            StartButton.Margin = new System.Windows.Forms.Padding(0);
+            StartButton.Name = "StartButton";
+            StartButton.Size = new System.Drawing.Size(187, 92);
+            StartButton.TabIndex = 8;
+            StartButton.Text = "1. 시작하기";
+            StartButton.UseVisualStyleBackColor = true;
+            StartButton.Click += StartButton_Click;
+            // 
+            // ListButton
+            // 
+            ListButton.Location = new System.Drawing.Point(0, 88);
+            ListButton.Margin = new System.Windows.Forms.Padding(0);
+            ListButton.Name = "ListButton";
+            ListButton.Size = new System.Drawing.Size(187, 92);
+            ListButton.TabIndex = 9;
+            ListButton.Text = "2. 리스트 확인";
+            ListButton.UseVisualStyleBackColor = true;
+            ListButton.Click += ListButton_Click;
+            // 
+            // ManageButton
+            // 
+            ManageButton.Location = new System.Drawing.Point(0, 177);
+            ManageButton.Margin = new System.Windows.Forms.Padding(0);
+            ManageButton.Name = "ManageButton";
+            ManageButton.Size = new System.Drawing.Size(187, 92);
+            ManageButton.TabIndex = 10;
+            ManageButton.Text = "3. 캐릭터 관리";
+            ManageButton.UseVisualStyleBackColor = true;
+            ManageButton.Click += ManageButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -780,9 +811,9 @@
             MainTabControl.ResumeLayout(false);
             TabPage1.ResumeLayout(false);
             TabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             TabPage2.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)BossDataGridView).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -828,7 +859,6 @@
         private System.Windows.Forms.TabPage TabPage3;
         private System.Windows.Forms.Button ManageButton;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox APIKeyTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
@@ -857,10 +887,6 @@
         private System.Windows.Forms.ColumnHeader heroLv;
         private System.Windows.Forms.ColumnHeader heroPower;
         private System.Windows.Forms.Button CharacterLoadButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader17;
@@ -874,6 +900,14 @@
         private System.Windows.Forms.ColumnHeader columnHeader25;
         private System.Windows.Forms.ColumnHeader columnHeader26;
         private System.Windows.Forms.ColumnHeader columnHeader27;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView BossDataGridView;
+        private System.Windows.Forms.TextBox APIKeyTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bossNameCol;
+        private System.Windows.Forms.DataGridViewComboBoxColumn difficultyCol;
+        private System.Windows.Forms.DataGridViewComboBoxColumn partyNumCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
+        private System.Windows.Forms.DataGridViewButtonColumn deleteCol;
     }
 }
 
