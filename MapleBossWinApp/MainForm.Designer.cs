@@ -104,6 +104,7 @@
             StartButton = new System.Windows.Forms.Button();
             ListButton = new System.Windows.Forms.Button();
             ManageButton = new System.Windows.Forms.Button();
+            label3 = new System.Windows.Forms.Label();
             MainTabControl.SuspendLayout();
             TabPage1.SuspendLayout();
             TabPage2.SuspendLayout();
@@ -226,7 +227,7 @@
             listView2.Location = new System.Drawing.Point(729, 209);
             listView2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             listView2.Name = "listView2";
-            listView2.Size = new System.Drawing.Size(505, 536);
+            listView2.Size = new System.Drawing.Size(505, 416);
             listView2.TabIndex = 7;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = System.Windows.Forms.View.Details;
@@ -271,7 +272,7 @@
             FirstHeroListView.Location = new System.Drawing.Point(42, 209);
             FirstHeroListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             FirstHeroListView.Name = "FirstHeroListView";
-            FirstHeroListView.Size = new System.Drawing.Size(505, 536);
+            FirstHeroListView.Size = new System.Drawing.Size(505, 416);
             FirstHeroListView.TabIndex = 5;
             FirstHeroListView.UseCompatibleStateImageBehavior = false;
             FirstHeroListView.View = System.Windows.Forms.View.Details;
@@ -756,11 +757,21 @@
             ManageButton.UseVisualStyleBackColor = true;
             ManageButton.Click += ManageButton_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(7, 387);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(177, 20);
+            label3.TabIndex = 11;
+            label3.Text = "제작자 : 루나 신용왕미수";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1777, 837);
+            Controls.Add(label3);
             Controls.Add(ManageButton);
             Controls.Add(ListButton);
             Controls.Add(StartButton);
@@ -783,6 +794,7 @@
             groupBox1.ResumeLayout(false);
             TabPage3.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -863,6 +875,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn partyNumCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
         private System.Windows.Forms.DataGridViewButtonColumn deleteCol;
+        private System.Windows.Forms.Label label3;
     }
 }
 
