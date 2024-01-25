@@ -56,24 +56,17 @@
             label5 = new System.Windows.Forms.Label();
             TabPage2 = new System.Windows.Forms.TabPage();
             groupBox4 = new System.Windows.Forms.GroupBox();
+            MiddlePriceLabel = new System.Windows.Forms.Label();
             BossDataGridView = new System.Windows.Forms.DataGridView();
             bossNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             difficultyCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
             partyNumCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
             priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             deleteCol = new System.Windows.Forms.DataGridViewButtonColumn();
-            BossListView = new System.Windows.Forms.ListView();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            columnHeader6 = new System.Windows.Forms.ColumnHeader();
             groupBox3 = new System.Windows.Forms.GroupBox();
+            TotalBossCountLabel = new System.Windows.Forms.Label();
+            TotalHeroCountLabel = new System.Windows.Forms.Label();
             TotalPriceLabel = new System.Windows.Forms.Label();
-            SelectedHeroNumLabel2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
             groupBox2 = new System.Windows.Forms.GroupBox();
             APIKeyTextBox = new System.Windows.Forms.TextBox();
             label10 = new System.Windows.Forms.Label();
@@ -172,7 +165,7 @@
             // SelectedHeroNumLabel
             // 
             SelectedHeroNumLabel.AutoSize = true;
-            SelectedHeroNumLabel.Location = new System.Drawing.Point(1204, 765);
+            SelectedHeroNumLabel.Location = new System.Drawing.Point(1203, 765);
             SelectedHeroNumLabel.Name = "SelectedHeroNumLabel";
             SelectedHeroNumLabel.Size = new System.Drawing.Size(25, 20);
             SelectedHeroNumLabel.TabIndex = 13;
@@ -309,7 +302,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(38, 164);
+            label7.Location = new System.Drawing.Point(39, 164);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(124, 20);
             label7.TabIndex = 4;
@@ -327,7 +320,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(38, 91);
+            label6.Location = new System.Drawing.Point(39, 91);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(69, 20);
             label6.TabIndex = 2;
@@ -336,7 +329,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(38, 39);
+            label5.Location = new System.Drawing.Point(39, 39);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(104, 20);
             label5.TabIndex = 0;
@@ -359,29 +352,43 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(MiddlePriceLabel);
             groupBox4.Controls.Add(BossDataGridView);
-            groupBox4.Controls.Add(BossListView);
-            groupBox4.Location = new System.Drawing.Point(793, 169);
+            groupBox4.Location = new System.Drawing.Point(827, 169);
             groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox4.Name = "groupBox4";
             groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox4.Size = new System.Drawing.Size(652, 593);
+            groupBox4.Size = new System.Drawing.Size(618, 593);
             groupBox4.TabIndex = 10;
             groupBox4.TabStop = false;
             groupBox4.Text = "캐릭별 보스 목록";
             // 
+            // MiddlePriceLabel
+            // 
+            MiddlePriceLabel.AutoSize = true;
+            MiddlePriceLabel.Location = new System.Drawing.Point(19, 555);
+            MiddlePriceLabel.Name = "MiddlePriceLabel";
+            MiddlePriceLabel.Size = new System.Drawing.Size(122, 20);
+            MiddlePriceLabel.TabIndex = 17;
+            MiddlePriceLabel.Text = "중간 수입 합계 : ";
+            // 
             // BossDataGridView
             // 
             BossDataGridView.AllowUserToAddRows = false;
+            BossDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             BossDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             BossDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { bossNameCol, difficultyCol, partyNumCol, priceCol, deleteCol });
-            BossDataGridView.Location = new System.Drawing.Point(15, 32);
+            BossDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            BossDataGridView.Location = new System.Drawing.Point(19, 32);
+            BossDataGridView.MultiSelect = false;
             BossDataGridView.Name = "BossDataGridView";
+            BossDataGridView.RowHeadersVisible = false;
             BossDataGridView.RowHeadersWidth = 51;
             BossDataGridView.RowTemplate.Height = 29;
-            BossDataGridView.Size = new System.Drawing.Size(607, 247);
+            BossDataGridView.Size = new System.Drawing.Size(579, 513);
             BossDataGridView.TabIndex = 16;
-            BossDataGridView.CellContentClick += BossDataGridView_CellContentClick;
+            BossDataGridView.TabStop = false;
+            BossDataGridView.CellMouseClick += BossDataGridView_CellMouseClick;
             BossDataGridView.CellValueChanged += BossDataGridView_CellValueChanged;
             // 
             // bossNameCol
@@ -414,7 +421,7 @@
             priceCol.HeaderText = "결정석값";
             priceCol.MinimumWidth = 6;
             priceCol.Name = "priceCol";
-            priceCol.Width = 125;
+            priceCol.Width = 80;
             // 
             // deleteCol
             // 
@@ -424,95 +431,46 @@
             deleteCol.Text = "삭제";
             deleteCol.Width = 80;
             // 
-            // BossListView
-            // 
-            BossListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6 });
-            BossListView.GridLines = true;
-            BossListView.Location = new System.Drawing.Point(15, 286);
-            BossListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BossListView.Name = "BossListView";
-            BossListView.Size = new System.Drawing.Size(607, 536);
-            BossListView.TabIndex = 0;
-            BossListView.UseCompatibleStateImageBehavior = false;
-            BossListView.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "No";
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "보스명";
-            columnHeader2.Width = 100;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "난이도";
-            columnHeader3.Width = 100;
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "파티수";
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "결정석값";
-            columnHeader5.Width = 80;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "삭제";
-            // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(TotalBossCountLabel);
+            groupBox3.Controls.Add(TotalHeroCountLabel);
             groupBox3.Controls.Add(TotalPriceLabel);
-            groupBox3.Controls.Add(SelectedHeroNumLabel2);
-            groupBox3.Controls.Add(label3);
-            groupBox3.Controls.Add(label4);
-            groupBox3.Location = new System.Drawing.Point(793, 28);
+            groupBox3.Location = new System.Drawing.Point(827, 28);
             groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox3.Size = new System.Drawing.Size(652, 133);
+            groupBox3.Size = new System.Drawing.Size(618, 133);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "집계";
             // 
+            // TotalBossCountLabel
+            // 
+            TotalBossCountLabel.AutoSize = true;
+            TotalBossCountLabel.Location = new System.Drawing.Point(201, 63);
+            TotalBossCountLabel.Name = "TotalBossCountLabel";
+            TotalBossCountLabel.Size = new System.Drawing.Size(87, 20);
+            TotalBossCountLabel.TabIndex = 2;
+            TotalBossCountLabel.Text = "결정석 수 : ";
+            // 
+            // TotalHeroCountLabel
+            // 
+            TotalHeroCountLabel.AutoSize = true;
+            TotalHeroCountLabel.Location = new System.Drawing.Point(15, 63);
+            TotalHeroCountLabel.Name = "TotalHeroCountLabel";
+            TotalHeroCountLabel.Size = new System.Drawing.Size(102, 20);
+            TotalHeroCountLabel.TabIndex = 1;
+            TotalHeroCountLabel.Text = "보스돌이 수 : ";
+            // 
             // TotalPriceLabel
             // 
             TotalPriceLabel.AutoSize = true;
-            TotalPriceLabel.Location = new System.Drawing.Point(322, 63);
+            TotalPriceLabel.Location = new System.Drawing.Point(401, 63);
             TotalPriceLabel.Name = "TotalPriceLabel";
-            TotalPriceLabel.Size = new System.Drawing.Size(59, 20);
-            TotalPriceLabel.TabIndex = 3;
-            TotalPriceLabel.Text = "총 수입";
-            // 
-            // SelectedHeroNumLabel2
-            // 
-            SelectedHeroNumLabel2.AutoSize = true;
-            SelectedHeroNumLabel2.Location = new System.Drawing.Point(123, 63);
-            SelectedHeroNumLabel2.Name = "SelectedHeroNumLabel2";
-            SelectedHeroNumLabel2.Size = new System.Drawing.Size(59, 20);
-            SelectedHeroNumLabel2.TabIndex = 2;
-            SelectedHeroNumLabel2.Text = "총 수입";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(15, 63);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(102, 20);
-            label3.TabIndex = 1;
-            label3.Text = "보스돌이 수 : ";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(249, 63);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(72, 20);
-            label4.TabIndex = 0;
-            label4.Text = "총 수입 : ";
+            TotalPriceLabel.Size = new System.Drawing.Size(72, 20);
+            TotalPriceLabel.TabIndex = 0;
+            TotalPriceLabel.Text = "총 수입 : ";
             // 
             // groupBox2
             // 
@@ -528,7 +486,7 @@
             groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox2.Size = new System.Drawing.Size(767, 133);
+            groupBox2.Size = new System.Drawing.Size(802, 133);
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "보스 내용기입";
@@ -563,7 +521,7 @@
             // BossNameComboBox
             // 
             BossNameComboBox.FormattingEnabled = true;
-            BossNameComboBox.Location = new System.Drawing.Point(187, 87);
+            BossNameComboBox.Location = new System.Drawing.Point(186, 87);
             BossNameComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             BossNameComboBox.Name = "BossNameComboBox";
             BossNameComboBox.Size = new System.Drawing.Size(131, 28);
@@ -585,12 +543,13 @@
             HeroTextBox.Location = new System.Drawing.Point(17, 87);
             HeroTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             HeroTextBox.Name = "HeroTextBox";
-            HeroTextBox.Size = new System.Drawing.Size(137, 27);
+            HeroTextBox.Size = new System.Drawing.Size(136, 27);
             HeroTextBox.TabIndex = 2;
+            HeroTextBox.Text = "신용왕미수";
             // 
             // ListAddBtn
             // 
-            ListAddBtn.Location = new System.Drawing.Point(481, 66);
+            ListAddBtn.Location = new System.Drawing.Point(481, 67);
             ListAddBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             ListAddBtn.Name = "ListAddBtn";
             ListAddBtn.Size = new System.Drawing.Size(112, 49);
@@ -615,7 +574,7 @@
             groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox1.Size = new System.Drawing.Size(767, 593);
+            groupBox1.Size = new System.Drawing.Size(802, 593);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "캐릭터 목록";
@@ -628,7 +587,7 @@
             HeroListView.Location = new System.Drawing.Point(18, 32);
             HeroListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             HeroListView.Name = "HeroListView";
-            HeroListView.Size = new System.Drawing.Size(742, 536);
+            HeroListView.Size = new System.Drawing.Size(778, 536);
             HeroListView.TabIndex = 0;
             HeroListView.UseCompatibleStateImageBehavior = false;
             HeroListView.View = System.Windows.Forms.View.Details;
@@ -642,16 +601,17 @@
             // heroName
             // 
             heroName.Text = "캐릭터명";
-            heroName.Width = 90;
+            heroName.Width = 80;
             // 
             // heroClass
             // 
             heroClass.Text = "직업";
-            heroClass.Width = 90;
+            heroClass.Width = 80;
             // 
             // heroLv
             // 
             heroLv.Text = "레벨";
+            heroLv.Width = 50;
             // 
             // heroPower
             // 
@@ -660,11 +620,12 @@
             // maxBoss
             // 
             maxBoss.Text = "최대보스";
-            maxBoss.Width = 100;
+            maxBoss.Width = 90;
             // 
             // maxBossDiff
             // 
             maxBossDiff.Text = "난이도";
+            maxBossDiff.Width = 50;
             // 
             // stoneNum
             // 
@@ -674,7 +635,7 @@
             // stoneTotalPrice
             // 
             stoneTotalPrice.Text = "결정석값";
-            stoneTotalPrice.Width = 80;
+            stoneTotalPrice.Width = 70;
             // 
             // TabPage3
             // 
@@ -691,7 +652,7 @@
             // 
             // button3
             // 
-            button3.Location = new System.Drawing.Point(20, 44);
+            button3.Location = new System.Drawing.Point(21, 44);
             button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             button3.Name = "button3";
             button3.Size = new System.Drawing.Size(112, 49);
@@ -704,7 +665,7 @@
             listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader17, columnHeader18, columnHeader19, columnHeader20, columnHeader21, columnHeader22, columnHeader23, columnHeader24, columnHeader25, columnHeader26, columnHeader27 });
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
-            listView1.Location = new System.Drawing.Point(20, 127);
+            listView1.Location = new System.Drawing.Point(21, 127);
             listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             listView1.Name = "listView1";
             listView1.Size = new System.Drawing.Size(950, 536);
@@ -767,7 +728,7 @@
             StartButton.Location = new System.Drawing.Point(0, 0);
             StartButton.Margin = new System.Windows.Forms.Padding(0);
             StartButton.Name = "StartButton";
-            StartButton.Size = new System.Drawing.Size(187, 92);
+            StartButton.Size = new System.Drawing.Size(186, 92);
             StartButton.TabIndex = 8;
             StartButton.Text = "1. 시작하기";
             StartButton.UseVisualStyleBackColor = true;
@@ -778,7 +739,7 @@
             ListButton.Location = new System.Drawing.Point(0, 88);
             ListButton.Margin = new System.Windows.Forms.Padding(0);
             ListButton.Name = "ListButton";
-            ListButton.Size = new System.Drawing.Size(187, 92);
+            ListButton.Size = new System.Drawing.Size(186, 92);
             ListButton.TabIndex = 9;
             ListButton.Text = "2. 리스트 확인";
             ListButton.UseVisualStyleBackColor = true;
@@ -789,7 +750,7 @@
             ManageButton.Location = new System.Drawing.Point(0, 177);
             ManageButton.Margin = new System.Windows.Forms.Padding(0);
             ManageButton.Name = "ManageButton";
-            ManageButton.Size = new System.Drawing.Size(187, 92);
+            ManageButton.Size = new System.Drawing.Size(186, 92);
             ManageButton.TabIndex = 10;
             ManageButton.Text = "3. 캐릭터 관리";
             ManageButton.UseVisualStyleBackColor = true;
@@ -799,7 +760,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1711, 837);
+            ClientSize = new System.Drawing.Size(1777, 837);
             Controls.Add(ManageButton);
             Controls.Add(ListButton);
             Controls.Add(StartButton);
@@ -813,6 +774,7 @@
             TabPage1.PerformLayout();
             TabPage2.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)BossDataGridView).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
@@ -829,16 +791,8 @@
         private System.Windows.Forms.TabPage TabPage1;
         private System.Windows.Forms.TabPage TabPage2;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ListView BossListView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label TotalHeroCountLabel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox DifficultyComboBox;
         private System.Windows.Forms.ComboBox BossNameComboBox;
@@ -882,7 +836,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label TotalHeroNumLabel;
         private System.Windows.Forms.Label TotalPriceLabel;
-        private System.Windows.Forms.Label SelectedHeroNumLabel2;
         private System.Windows.Forms.ColumnHeader heroClass;
         private System.Windows.Forms.ColumnHeader heroLv;
         private System.Windows.Forms.ColumnHeader heroPower;
@@ -901,8 +854,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader26;
         private System.Windows.Forms.ColumnHeader columnHeader27;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView BossDataGridView;
         private System.Windows.Forms.TextBox APIKeyTextBox;
+        public System.Windows.Forms.DataGridView BossDataGridView;
+        private System.Windows.Forms.Label MiddlePriceLabel;
+        private System.Windows.Forms.Label TotalBossCountLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn bossNameCol;
         private System.Windows.Forms.DataGridViewComboBoxColumn difficultyCol;
         private System.Windows.Forms.DataGridViewComboBoxColumn partyNumCol;

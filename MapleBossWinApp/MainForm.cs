@@ -15,6 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MapleStory.OpenAPI;
 using System.Security.Permissions;
 using MapleStory.OpenAPI.Dto;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace MapleBossWinApp
 {
@@ -29,6 +30,8 @@ namespace MapleBossWinApp
         public string characterClass = "";
         public int characterLevel = 0;
         public string characterBattle = "";
+
+        int heroListViewRow = 0;
 
         public MainForm()
         {
@@ -93,6 +96,8 @@ namespace MapleBossWinApp
             item.SubItems.Add(totalBossPrice2.ToString() + "억");
 
             HeroListView.Items.Add(item);
+
+            UpdateTotalLabel();
         }
 
 
@@ -154,9 +159,11 @@ namespace MapleBossWinApp
             if (HeroListView.SelectedItems.Count != 0)
             {
                 // 입력 받은 캐릭터명과 최대보스 정보를 가져옴
-                int SelectRow = HeroListView.SelectedItems[0].Index;
-                string maxBossName = HeroListView.Items[SelectRow].SubItems[5].Text; // 최대로 잡을 수 있는 보스
-                string maxBossDiffculty = HeroListView.Items[SelectRow].SubItems[6].Text;
+                int selectRow = HeroListView.SelectedItems[0].Index;
+                string maxBossName = HeroListView.Items[selectRow].SubItems[5].Text; // 최대로 잡을 수 있는 보스
+                string maxBossDiffculty = HeroListView.Items[selectRow].SubItems[6].Text;
+
+                heroListViewRow = selectRow;
 
                 // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
                 int isClear = 0;
@@ -175,57 +182,18 @@ namespace MapleBossWinApp
                     if (isClear == 1 && clearBossList.Contains(bossName) == false) // 잡을 수 있는 보스이면서 이미 깬 보스가 아니라면
                     {
                         bossNo += 1;
-
+                        clearBossList.Add(bossName);
                         BossDataGridView.Rows.Add(bossName, difficulty, "1", Math.Round(bossPrice / 100000000, 2).ToString() + "억", "삭제");
-
                     }
                 }
+
+                CalculateBossPrice calculateBossPrice = new CalculateBossPrice();
+                string priceText = calculateBossPrice.MiddlePrice(BossDataGridView);
+                MiddlePriceLabel.Text = "중간 수입 합계 : " + priceText;
+                HeroListView.Items[heroListViewRow].SubItems[7].Text = BossDataGridView.RowCount.ToString();
+                HeroListView.Items[heroListViewRow].SubItems[8].Text = priceText;
+                UpdateTotalLabel();
             }
-
-            BossListView.Items.Clear();
-            if (HeroListView.SelectedItems.Count != 0)
-            {
-                // 입력 받은 캐릭터명과 최대보스 정보를 가져옴
-                int SelectRow = HeroListView.SelectedItems[0].Index;
-                string maxBossName = HeroListView.Items[SelectRow].SubItems[5].Text; // 최대로 잡을 수 있는 보스
-                string maxBossDiffculty = HeroListView.Items[SelectRow].SubItems[6].Text;
-
-                // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
-                int isClear = 0;
-                int bossNo = 0;
-                List<String> clearBossList = new List<string>();
-                for (int i = bossNameList.Count - 1; i >= 0; i--)
-                {
-                    string bossName = bossNameList[i];
-                    string difficulty = difficultyList[i];
-                    double bossPrice = Convert.ToInt32(bossPriceList[i]);
-
-                    if (maxBossName == bossName && maxBossDiffculty == difficulty) // 최대보스부터 카운트
-                    {
-                        isClear = 1;
-                    }
-                    if (isClear == 1 && clearBossList.Contains(bossName) == false) // 잡을 수 있는 보스이면서 이미 깬 보스가 아니라면
-                    {
-                        bossNo += 1;
-                        ListViewItem item = new ListViewItem(bossNo.ToString());
-                        item.SubItems.Add(bossName); // 보스명
-                        item.SubItems.Add(difficulty); // 난이도
-                        item.SubItems.Add("1"); // 파티수
-                        item.SubItems.Add(Math.Round(bossPrice / 100000000, 2).ToString() + "억"); // 결정석값
-                        item.SubItems.Add("삭제");
-
-                        clearBossList.Add(bossNameList[i]); // 잡은 보스 리스트에 추가
-
-                        BossListView.Items.Add(item);
-                    }
-                }
-            }
-        }
-
-        private void DeleteRowButtonClick(object sender, EventArgs e)
-        {
-
-
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -243,32 +211,75 @@ namespace MapleBossWinApp
             MainTabControl.SelectedTab = MainTabControl.TabPages[2];
         }
 
-        private void BossDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void BossDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (BossDataGridView.SelectedRows.Count > 0)
+            if (BossDataGridView.Rows.Count > 0)
             {
-                MessageBox.Show("냥");
-                if (e.ColumnIndex == BossDataGridView.Columns["deleteCol"].Index)
-                {
-                    MessageBox.Show("냥2");
-                }
-                //BossDataGridView.Rows.Remove(BossDataGridView.SelectedRows[0]);
+                int currentRowIdx = BossDataGridView.CurrentCell.RowIndex;
+                string bossName = BossDataGridView.Rows[currentRowIdx].Cells[0].Value.ToString();
+                string difficulty = BossDataGridView.Rows[currentRowIdx].Cells[1].Value.ToString();
+                int partyNum = Convert.ToInt32(BossDataGridView.Rows[currentRowIdx].Cells[2].Value);
 
-                // 전체 결정석값 계산하는 코드
+                CalculateBossPrice calculateBossPrice = new CalculateBossPrice();
+                if (BossDataGridView.CurrentCell.ColumnIndex == 1)
+                {
+                    // 난이도 변경했을 때 보스 가격 반영
+                    difficulty = BossDataGridView.Rows[currentRowIdx].Cells[1].Value.ToString();
+                }
+                else if (BossDataGridView.CurrentCell.ColumnIndex == 2)
+                {
+                    // 파티수 변경했을 때 보스 가격 반영
+                    partyNum = Convert.ToInt32(BossDataGridView.Rows[currentRowIdx].Cells[2].Value);
+                }
+
+                BossDataGridView.Rows[currentRowIdx].Cells[3].Value = calculateBossPrice.SinglePrice(bossNameList, difficultyList, bossPriceList, bossName, difficulty, partyNum);
+                string priceText = calculateBossPrice.MiddlePrice(BossDataGridView);
+                MiddlePriceLabel.Text = "중간 수입 합계 : " + priceText;
+                HeroListView.Items[heroListViewRow].SubItems[8].Text = priceText;
+
+                UpdateTotalLabel();
             }
         }
 
-        private void BossDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void BossDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (BossDataGridView.CurrentCell.ColumnIndex == 1)
+            if (BossDataGridView.Rows.Count > 0)
             {
+                int currentRowIdx = BossDataGridView.CurrentCell.RowIndex;
+                string bossName = BossDataGridView.Rows[currentRowIdx].Cells[0].Value.ToString();
+                string difficulty = BossDataGridView.Rows[currentRowIdx].Cells[1].Value.ToString();
+                int partyNum = Convert.ToInt32(BossDataGridView.Rows[currentRowIdx].Cells[2].Value);
 
+                if (BossDataGridView.CurrentCell.ColumnIndex == 4) // 행을 삭제했을 때
+                {
+                    BossDataGridView.Rows.RemoveAt(currentRowIdx);
+
+                    CalculateBossPrice calculateBossPrice = new CalculateBossPrice();
+                    BossDataGridView.Rows[currentRowIdx].Cells[3].Value = calculateBossPrice.SinglePrice(bossNameList, difficultyList, bossPriceList, bossName, difficulty, partyNum);
+
+                    string priceText = calculateBossPrice.MiddlePrice(BossDataGridView);
+                    MiddlePriceLabel.Text = "중간 수입 합계 : " + priceText;
+                    HeroListView.Items[heroListViewRow].SubItems[7].Text = BossDataGridView.RowCount.ToString();
+                    HeroListView.Items[heroListViewRow].SubItems[8].Text = priceText;
+                    UpdateTotalLabel();
+                }
             }
-            else if (BossDataGridView.CurrentCell.ColumnIndex == 2)
+        }
+
+        private void UpdateTotalLabel()
+        {
+            int bossCount = 0;
+            double bossTotalPrice = 0;
+            for (int i = 0; i < HeroListView.Items.Count; i++)
             {
-
+                string priceText = (HeroListView.Items[i].SubItems[8].Text).Replace("억", "");
+                bossCount += Convert.ToInt32(HeroListView.Items[i].SubItems[7].Text);
+                bossTotalPrice += Convert.ToDouble(priceText);
             }
 
+            TotalHeroCountLabel.Text = "보스돌이 수 : " + HeroListView.Items.Count.ToString();
+            TotalBossCountLabel.Text = "결정석 수 : " + bossCount.ToString();
+            TotalPriceLabel.Text = "총 수입 : " + (Math.Round(bossTotalPrice, 2)).ToString() + "억";
         }
     }
 }
