@@ -30,6 +30,13 @@
         {
             MainTabControl = new System.Windows.Forms.TabControl();
             TabPage1 = new System.Windows.Forms.TabPage();
+            SaveFileListComboBox = new System.Windows.Forms.ComboBox();
+            DeleteAPIKeyButton = new System.Windows.Forms.Button();
+            SaveAPIKeyButton = new System.Windows.Forms.Button();
+            label4 = new System.Windows.Forms.Label();
+            APIKeyTextBox = new System.Windows.Forms.TextBox();
+            label10 = new System.Windows.Forms.Label();
+            APILinkLabel = new System.Windows.Forms.Label();
             CharacterLoadButton = new System.Windows.Forms.Button();
             SelectedHeroNumLabel = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
@@ -43,7 +50,6 @@
             columnHeader14 = new System.Windows.Forms.ColumnHeader();
             columnHeader15 = new System.Windows.Forms.ColumnHeader();
             columnHeader16 = new System.Windows.Forms.ColumnHeader();
-            label8 = new System.Windows.Forms.Label();
             FirstHeroListView = new System.Windows.Forms.ListView();
             columnHeader7 = new System.Windows.Forms.ColumnHeader();
             columnHeader8 = new System.Windows.Forms.ColumnHeader();
@@ -68,8 +74,8 @@
             TotalHeroCountLabel = new System.Windows.Forms.Label();
             TotalPriceLabel = new System.Windows.Forms.Label();
             groupBox2 = new System.Windows.Forms.GroupBox();
-            APIKeyTextBox = new System.Windows.Forms.TextBox();
-            label10 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            SaveDataButton = new System.Windows.Forms.Button();
             DifficultyComboBox = new System.Windows.Forms.ComboBox();
             BossNameComboBox = new System.Windows.Forms.ComboBox();
             label2 = new System.Windows.Forms.Label();
@@ -130,6 +136,13 @@
             // 
             // TabPage1
             // 
+            TabPage1.Controls.Add(SaveFileListComboBox);
+            TabPage1.Controls.Add(DeleteAPIKeyButton);
+            TabPage1.Controls.Add(SaveAPIKeyButton);
+            TabPage1.Controls.Add(label4);
+            TabPage1.Controls.Add(APIKeyTextBox);
+            TabPage1.Controls.Add(label10);
+            TabPage1.Controls.Add(APILinkLabel);
             TabPage1.Controls.Add(CharacterLoadButton);
             TabPage1.Controls.Add(SelectedHeroNumLabel);
             TabPage1.Controls.Add(label12);
@@ -138,7 +151,6 @@
             TabPage1.Controls.Add(button2);
             TabPage1.Controls.Add(button1);
             TabPage1.Controls.Add(listView2);
-            TabPage1.Controls.Add(label8);
             TabPage1.Controls.Add(FirstHeroListView);
             TabPage1.Controls.Add(label7);
             TabPage1.Controls.Add(CharacterTextBox);
@@ -153,15 +165,82 @@
             TabPage1.Text = "tabPage1";
             TabPage1.UseVisualStyleBackColor = true;
             // 
+            // SaveFileListComboBox
+            // 
+            SaveFileListComboBox.FormattingEnabled = true;
+            SaveFileListComboBox.Location = new System.Drawing.Point(729, 149);
+            SaveFileListComboBox.Name = "SaveFileListComboBox";
+            SaveFileListComboBox.Size = new System.Drawing.Size(335, 28);
+            SaveFileListComboBox.TabIndex = 22;
+            // 
+            // DeleteAPIKeyButton
+            // 
+            DeleteAPIKeyButton.Location = new System.Drawing.Point(404, 148);
+            DeleteAPIKeyButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            DeleteAPIKeyButton.Name = "DeleteAPIKeyButton";
+            DeleteAPIKeyButton.Size = new System.Drawing.Size(65, 27);
+            DeleteAPIKeyButton.TabIndex = 21;
+            DeleteAPIKeyButton.Text = "삭제";
+            DeleteAPIKeyButton.UseVisualStyleBackColor = true;
+            DeleteAPIKeyButton.Click += DeleteAPIKeyButton_Click;
+            // 
+            // SaveAPIKeyButton
+            // 
+            SaveAPIKeyButton.Location = new System.Drawing.Point(334, 148);
+            SaveAPIKeyButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            SaveAPIKeyButton.Name = "SaveAPIKeyButton";
+            SaveAPIKeyButton.Size = new System.Drawing.Size(65, 27);
+            SaveAPIKeyButton.TabIndex = 20;
+            SaveAPIKeyButton.Text = "저장";
+            SaveAPIKeyButton.UseVisualStyleBackColor = true;
+            SaveAPIKeyButton.Click += SaveAPIKeyButton_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(334, 118);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(96, 20);
+            label4.TabIndex = 18;
+            label4.Text = "API Key 기억";
+            // 
+            // APIKeyTextBox
+            // 
+            APIKeyTextBox.Location = new System.Drawing.Point(42, 148);
+            APIKeyTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            APIKeyTextBox.Name = "APIKeyTextBox";
+            APIKeyTextBox.Size = new System.Drawing.Size(286, 27);
+            APIKeyTextBox.TabIndex = 17;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(41, 118);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(104, 20);
+            label10.TabIndex = 16;
+            label10.Text = "Open API Key";
+            // 
+            // APILinkLabel
+            // 
+            APILinkLabel.AutoSize = true;
+            APILinkLabel.Location = new System.Drawing.Point(42, 78);
+            APILinkLabel.Name = "APILinkLabel";
+            APILinkLabel.Size = new System.Drawing.Size(197, 20);
+            APILinkLabel.TabIndex = 15;
+            APILinkLabel.Text = "https://openapi.nexon.com/";
+            APILinkLabel.Click += APILinkLabel_Click;
+            // 
             // CharacterLoadButton
             // 
-            CharacterLoadButton.Location = new System.Drawing.Point(321, 79);
+            CharacterLoadButton.Location = new System.Drawing.Point(1070, 149);
             CharacterLoadButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             CharacterLoadButton.Name = "CharacterLoadButton";
-            CharacterLoadButton.Size = new System.Drawing.Size(123, 40);
+            CharacterLoadButton.Size = new System.Drawing.Size(103, 27);
             CharacterLoadButton.TabIndex = 14;
             CharacterLoadButton.Text = "불러오기";
             CharacterLoadButton.UseVisualStyleBackColor = true;
+            CharacterLoadButton.Click += CharacterLoadButton_Click;
             // 
             // SelectedHeroNumLabel
             // 
@@ -255,15 +334,6 @@
             columnHeader16.Text = "전투력";
             columnHeader16.Width = 80;
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(726, 164);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(104, 20);
-            label8.TabIndex = 6;
-            label8.Text = "보스돌이 목록";
-            // 
             // FirstHeroListView
             // 
             FirstHeroListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11 });
@@ -303,15 +373,15 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(39, 164);
+            label7.Location = new System.Drawing.Point(729, 118);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(124, 20);
+            label7.Size = new System.Drawing.Size(219, 20);
             label7.TabIndex = 4;
-            label7.Text = "전체 유니온 캐릭";
+            label7.Text = "이전에 저장한 데이터 불러오기";
             // 
             // CharacterTextBox
             // 
-            CharacterTextBox.Location = new System.Drawing.Point(156, 83);
+            CharacterTextBox.Location = new System.Drawing.Point(929, 25);
             CharacterTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             CharacterTextBox.Name = "CharacterTextBox";
             CharacterTextBox.Size = new System.Drawing.Size(139, 27);
@@ -321,7 +391,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(39, 91);
+            label6.Location = new System.Drawing.Point(812, 33);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(69, 20);
             label6.TabIndex = 2;
@@ -330,11 +400,12 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(39, 39);
+            label5.Font = new System.Drawing.Font("맑은 고딕", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.Location = new System.Drawing.Point(39, 25);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(104, 20);
+            label5.Size = new System.Drawing.Size(156, 38);
             label5.TabIndex = 0;
-            label5.Text = "Open API Key";
+            label5.Text = "1. API 등록";
             // 
             // TabPage2
             // 
@@ -475,8 +546,8 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(APIKeyTextBox);
-            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(label8);
+            groupBox2.Controls.Add(SaveDataButton);
             groupBox2.Controls.Add(DifficultyComboBox);
             groupBox2.Controls.Add(BossNameComboBox);
             groupBox2.Controls.Add(label2);
@@ -492,22 +563,24 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "보스 내용기입";
             // 
-            // APIKeyTextBox
+            // label8
             // 
-            APIKeyTextBox.Location = new System.Drawing.Point(127, 32);
-            APIKeyTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            APIKeyTextBox.Name = "APIKeyTextBox";
-            APIKeyTextBox.Size = new System.Drawing.Size(286, 27);
-            APIKeyTextBox.TabIndex = 8;
+            label8.AutoSize = true;
+            label8.Location = new System.Drawing.Point(631, 63);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(154, 20);
+            label8.TabIndex = 8;
+            label8.Text = "현재 데이터 저장하기";
             // 
-            // label10
+            // SaveDataButton
             // 
-            label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(17, 35);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(104, 20);
-            label10.TabIndex = 7;
-            label10.Text = "Open API Key";
+            SaveDataButton.Location = new System.Drawing.Point(673, 87);
+            SaveDataButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            SaveDataButton.Name = "SaveDataButton";
+            SaveDataButton.Size = new System.Drawing.Size(112, 27);
+            SaveDataButton.TabIndex = 7;
+            SaveDataButton.Text = "저장";
+            SaveDataButton.UseVisualStyleBackColor = true;
             // 
             // DifficultyComboBox
             // 
@@ -550,10 +623,10 @@
             // 
             // ListAddBtn
             // 
-            ListAddBtn.Location = new System.Drawing.Point(481, 67);
+            ListAddBtn.Location = new System.Drawing.Point(475, 87);
             ListAddBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             ListAddBtn.Name = "ListAddBtn";
-            ListAddBtn.Size = new System.Drawing.Size(112, 49);
+            ListAddBtn.Size = new System.Drawing.Size(112, 29);
             ListAddBtn.TabIndex = 1;
             ListAddBtn.Text = "추가";
             ListAddBtn.UseVisualStyleBackColor = true;
@@ -835,7 +908,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.ColumnHeader columnHeader16;
-        private System.Windows.Forms.Label label8;
         public System.Windows.Forms.ListView FirstHeroListView;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
@@ -852,7 +924,6 @@
         private System.Windows.Forms.ColumnHeader heroLv;
         private System.Windows.Forms.ColumnHeader heroPower;
         private System.Windows.Forms.Button CharacterLoadButton;
-        private System.Windows.Forms.Label label10;
         public System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader17;
         private System.Windows.Forms.ColumnHeader columnHeader18;
@@ -866,7 +937,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader26;
         private System.Windows.Forms.ColumnHeader columnHeader27;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox APIKeyTextBox;
         public System.Windows.Forms.DataGridView BossDataGridView;
         private System.Windows.Forms.Label MiddlePriceLabel;
         private System.Windows.Forms.Label TotalBossCountLabel;
@@ -876,6 +946,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
         private System.Windows.Forms.DataGridViewButtonColumn deleteCol;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox APIKeyTextBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label APILinkLabel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button DeleteAPIKeyButton;
+        private System.Windows.Forms.Button SaveAPIKeyButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button SaveDataButton;
+        public System.Windows.Forms.ComboBox SaveFileListComboBox;
     }
 }
 

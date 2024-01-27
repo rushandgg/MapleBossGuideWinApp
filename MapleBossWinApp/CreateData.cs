@@ -10,31 +10,33 @@ namespace MapleBossWinApp
 {
     public class CreateData
     {
-        string mainFolderPath = "";
 
-        public void StartFolder()
-        {
-            // 내문서 폴더의 경로를 얻기
-            string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            
-            // 새로 생성할 폴더의 이름
-            string mainFolderName = "MapleBossGuideData";
-            
-            // 새로 생성할 폴더의 전체 경로
-            mainFolderPath = Path.Combine(myDocumentsPath, mainFolderName);
-                        
+        public void StartFolder(string _mainFolderPath, ComboBox _comboBox)
+        {                   
             // 폴더가 존재하지 않으면 폴더 생성
-            if (!Directory.Exists(mainFolderPath))
+            if (!Directory.Exists(_mainFolderPath))
             {
-                Directory.CreateDirectory(mainFolderPath);
+                Directory.CreateDirectory(_mainFolderPath);
+            }
+            else
+            {
+                LoadData loadData = new LoadData();
+                loadData.DataList(_mainFolderPath, _comboBox);
             }
         }
 
-        public void TotalHeroData(string _fileName, ListView _listView)
+        public void TotalHeroData(string _mainFolderPath, string _fileName, ListView _listView)
         {
             // 현재 설정한 보스돌이의 캐릭터 정보를 저장한다.
-            string savePath = Path.Combine(mainFolderPath, _fileName+"txt");
-            using (StreamWriter sw = new StreamWriter(savePath))
+            string savePath = Path.Combine(_mainFolderPath, _fileName);
+
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+
+            string savePath2 = Path.Combine(savePath, _fileName+".txt");
+            using (StreamWriter sw = new StreamWriter(savePath2))
             { 
                 // 각 행의 데이터 저장
                 for (int i = 0; i < _listView.Items.Count; i++) 
@@ -51,20 +53,58 @@ namespace MapleBossWinApp
                         }
                     }
                 }
+                sw.Close();
             }
-            MessageBox.Show("저장되었습니다.");
+            
         }
 
-        public void MiddleBossData(_)
-
-        public void DataFolder(_)
+        public void MiddleBossData(string _mainFolderPath, string _fileName,List<String> _heroNameList, List<String> _middleBossList)
         {
+            if (_heroNameList.Count >0 && _middleBossList.Count > 0)
+            { 
+                string savePath = Path.Combine(_mainFolderPath, _fileName);
+                for (int i = 0; i < _heroNameList.Count; i++)
+                {
+                    // 캐릭터 별 정보를 저장할 폴더 생성
+                    string savePath2 = Path.Combine(savePath, _heroNameList[i]); 
+                    Directory.CreateDirectory(savePath2);
 
+                    // 해당 캐릭터의 보스 정보 저장
+                    string savePath3 = Path.Combine(savePath2, "boss.txt");
+                    using (StreamWriter sw = new StreamWriter(savePath3))
+                    {
+                        
+                        for (int j = 0; j < _middleBossList.Count; j++)
+                        {
+                            sw.Write(_middleBossList[j] + "\n");
+                        }
+                        sw.Close();
+                    }
+
+                    // 해당 캐릭터의 장비메모 정보 저장
+                    string savePath4 = Path.Combine(savePath2, "item.txt");
+                    using (StreamWriter sw = new StreamWriter(savePath4))
+                    {
+                        /*
+                        for (int j = 0; j < _middleBossList.Count; j++)
+                        {
+                            sw.Write(_middleBossList[j] + "\n");
+                        }
+                        */
+                        sw.Close();
+                    }
+                }
+                MessageBox.Show("저장되었습니다.");
+            }
+            else
+            {
+                MessageBox.Show("저장할 정보가 없습니다.");
+            }
         }
 
-        public void SaveAPIKey(string _apiKey)
+        public void SaveAPIKey(string _mainFolderPath, string _apiKey)
         {
-            string apiKeyFilePath = mainFolderPath + "nexonAPIKey.txt";
+            string apiKeyFilePath = _mainFolderPath + "nexonAPIKey.txt";
             string content = _apiKey;
 
             // API Key 저장
@@ -73,12 +113,12 @@ namespace MapleBossWinApp
             MessageBox.Show("내문서 폴더에 API Key가 저장되었습니다.");
         }
         
-        public void DeleteAPIKey()
+        public void DeleteAPIKey(string _mainFolderPath)
         {
             try
             {
                 // 삭제할 텍스트 파일 경로
-                string apiKeyFilePath = mainFolderPath + "nexonAPIKey.txt";
+                string apiKeyFilePath = _mainFolderPath + "nexonAPIKey.txt";
 
                 // 텍스트 파일 삭제
                 File.Delete(apiKeyFilePath);
@@ -91,15 +131,17 @@ namespace MapleBossWinApp
             }
         }
 
-        public string CheckAPIFile()
+        public string CheckAPIFile(string _mainFolderPath)
         {
             string apiKey = "";
-            string apiKeyFilePath = mainFolderPath + "nexonAPIKey.txt";
+            string apiKeyFilePath = _mainFolderPath + "nexonAPIKey.txt";
 
-            if (Directory.Exists(mainFolderPath))
+            // 메인 폴더 존재 확인
+            if (Directory.Exists(_mainFolderPath))
             {
                 try
                 {
+                    // API Key 파일이 존재하면 정보 읽기
                     apiKey = File.ReadAllText(apiKeyFilePath);
                 }
                 catch (Exception)
