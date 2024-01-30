@@ -12,7 +12,13 @@ using static System.Windows.Forms.DataFormats;
 namespace MapleBossWinApp
 {
     public class CharacterAdd
-    {
+    {   // Nexon Open API 호출을 통해 캐릭터 관련 데이터를 불러오는 class
+
+        // API Key와 캐릭터명을 통해 데이터를 호출한다.
+        // BasicInfo() : 직업, 레벨, 전투력 기본적인 정보 호출
+        
+        // 아이템 정보를 호출하는 함수 추가할 예정
+
         private readonly MainForm _mainForm;
 
         public CharacterAdd(MainForm form)
@@ -21,7 +27,9 @@ namespace MapleBossWinApp
         }
 
         public async void BasicInfo(string _APIKey, string _CharacterName)
-        {
+        {   // 캐릭터의 기본적인 정보를 API 호출을 통해 불러온다.
+            // 불러온 정보를 MainForm의 HeroListView에 표시한다.
+
             // API 실행을 위한 부분
             var apiKey = _APIKey; // 입력된 API Key
             var api = new MapleStoryAPI(apiKey);

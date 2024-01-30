@@ -8,7 +8,12 @@ using System.Windows.Forms;
 namespace MapleBossWinApp
 {
     public class CalculateBossPrice
-    {
+    {   // 수입을 집계할 때 쓸 class
+
+        // SinglePrice() : 개별 보스 수입 계산, 파티수와 난이도에 따라 바뀜
+        // MiddlePrice() : 중간 보스 수입 계산, 해당 캐릭터의 전체 보스 수입을 계산한다.
+        // TotalPrice() : 전체 보스 수입 계산, 전체 캐릭터의 보스 수입을 계산한다.
+
         public string SinglePrice(List<string> _bossNameList, List<string> _difficultyList, List<string> _bossPriceList, string _bossName, string _difficulty, int _partyNum)
         {
             // 보스 결정석 가격을 계산한다

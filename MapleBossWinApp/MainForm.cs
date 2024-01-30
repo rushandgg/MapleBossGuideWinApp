@@ -112,13 +112,17 @@ namespace MapleBossWinApp
 
             UpdateTotalLabel();
 
+            //
+            heroNameList.Add(characterName);
+
             // 추가한 정보를 바탕으로 DataGridView 보스 목록 표시, 표시한 데이터를 List에 저장
-            SaveMiddleBossData(characterName, maxBossName, maxBossDifficulty); 
+            SaveMiddleBossData(characterName, maxBossName, maxBossDifficulty);
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {   // 프로그램이 로드되면 실행
+
             // 내문서 폴더의 경로를 얻기
             string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // 새로 생성할 폴더의 이름
@@ -163,7 +167,7 @@ namespace MapleBossWinApp
             // 난이도 ComboBox 초기화
             DifficultyComboBox.Items.Clear();
             DifficultyComboBox.Text = "";
-            
+
             // 선택 된 보스 이름
             string bossName = BossNameComboBox.Text;
 
@@ -192,7 +196,7 @@ namespace MapleBossWinApp
         {   // Listview에 추가한 데이터를 DataGridView에 표시하고 List에 저장한다.
 
             // 표시할 DataGridView 초기화
-            BossDataGridView.Rows.Clear(); 
+            BossDataGridView.Rows.Clear();
 
             // 최대보스 정보가 나올때까지 for문을 돌려 리스트를 완성한다.
             int isClear = 0;
@@ -214,19 +218,22 @@ namespace MapleBossWinApp
                     bossNo += 1;
                     clearBossList.Add(bossName);
                     BossDataGridView.Rows.Add(bossName, difficulty, "1", Math.Round(bossPrice / 100000000, 2).ToString() + "억", "삭제");
-                }
 
-                // 캐릭터 별 보스 정보를 List에 저장한다. 나중에 txt파일로 저장하거나 DataGridView에 표시할 때 씀
-                string[] middleBossDataArray = { characterName, bossName, difficulty, "1", Math.Round(bossPrice / 100000000, 2).ToString() + "억" };
-                middleBossList.Add(middleBossDataArray);
-            }    
+                    // 캐릭터 별 보스 정보를 List에 저장한다. 나중에 txt파일로 저장하거나 DataGridView에 표시할 때 씀
+                    string[] middleBossDataArray = { characterName, bossName, difficulty, "1", Math.Round(bossPrice / 100000000, 2).ToString() + "억" };
+                    middleBossList.Add(middleBossDataArray);
+                }
+            }
+            CalculateBossPrice calculateBossPrice = new CalculateBossPrice();
+            string priceText = calculateBossPrice.MiddlePrice(BossDataGridView);
+            MiddlePriceLabel.Text = "중간 수입 합계 : " + priceText;
         }
 
         private void HeroListView_SelectedIndexChanged(object sender, EventArgs e)
         {   // ListView의 데이터를 선택할 때 마다 DataGridView에 데이터를 표시
 
             // 표시할 DataGridView 초기화
-            BossDataGridView.Rows.Clear(); 
+            BossDataGridView.Rows.Clear();
 
             if (HeroListView.SelectedItems.Count != 0)
             {
@@ -247,7 +254,7 @@ namespace MapleBossWinApp
                 MiddlePriceLabel.Text = "중간 수입 합계 : " + priceText;
                 HeroListView.Items[selectRow].SubItems[7].Text = BossDataGridView.RowCount.ToString();
                 HeroListView.Items[selectRow].SubItems[8].Text = priceText;
-                
+
                 UpdateTotalLabel();
             }
         }
@@ -391,8 +398,27 @@ namespace MapleBossWinApp
         }
 
         private void CharacterLoadButton_Click(object sender, EventArgs e)
-        {
+        {   // 선택된 파일을 불러온다.
+            // 전체 캐릭터 정보,
+            // 캐릭별 격파 보스 정보를 차례로 불러옴
 
+            string fileName = SaveFileListComboBox.Text;
+            /*
+            LoadData loadData = new LoadData();
+            loadData.
+            */
+        }
+
+        private void SaveDataButton_Click(object sender, EventArgs e)
+        {   // 현재 저장한 정보를 로컬에 저장한다.
+            // 1. 저장할 폴더 생성, 2. 캐릭터 목록 데이터 생성, 3. 세부 보스 데이터 생성으로 진행한다.
+
+            string fileName = SavaFileNameTextBox.Text; // 입력한 파일명
+
+            CreateData createData = new CreateData();
+            createData.TotalHeroData(mainFolderPath, fileName, HeroListView); // 1. 저장할 폴더 생성, 2. 캐릭터 목록 데이터 생성
+
+            createData.MiddleBossData(mainFolderPath, fileName, heroNameList, middleBossList); // 3. 세부 보스 데이터 생성
         }
     }
 }

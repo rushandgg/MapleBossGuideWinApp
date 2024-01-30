@@ -111,6 +111,7 @@
             ListButton = new System.Windows.Forms.Button();
             ManageButton = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
+            SavaFileNameTextBox = new System.Windows.Forms.TextBox();
             MainTabControl.SuspendLayout();
             TabPage1.SuspendLayout();
             TabPage2.SuspendLayout();
@@ -546,6 +547,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(SavaFileNameTextBox);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(SaveDataButton);
             groupBox2.Controls.Add(DifficultyComboBox);
@@ -566,7 +568,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(631, 63);
+            label8.Location = new System.Drawing.Point(631, 24);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(154, 20);
             label8.TabIndex = 8;
@@ -581,6 +583,7 @@
             SaveDataButton.TabIndex = 7;
             SaveDataButton.Text = "저장";
             SaveDataButton.UseVisualStyleBackColor = true;
+            SaveDataButton.Click += SaveDataButton_Click;
             // 
             // DifficultyComboBox
             // 
@@ -833,11 +836,19 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(7, 387);
+            label3.Location = new System.Drawing.Point(7, 289);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(177, 20);
             label3.TabIndex = 11;
             label3.Text = "제작자 : 루나 신용왕미수";
+            // 
+            // SavaFileNameTextBox
+            // 
+            SavaFileNameTextBox.Location = new System.Drawing.Point(649, 48);
+            SavaFileNameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            SavaFileNameTextBox.Name = "SavaFileNameTextBox";
+            SavaFileNameTextBox.Size = new System.Drawing.Size(136, 27);
+            SavaFileNameTextBox.TabIndex = 9;
             // 
             // MainForm
             // 
@@ -955,6 +966,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button SaveDataButton;
         public System.Windows.Forms.ComboBox SaveFileListComboBox;
+        private System.Windows.Forms.TextBox SavaFileNameTextBox;
     }
 }
 
