@@ -75,35 +75,36 @@ namespace MapleBossWinApp
             if (_heroNameList.Count >0 && _middleBossList.Count > 0)
             { 
                 string savePath = Path.Combine(_mainFolderPath, _fileName); // '메인폴더\\파일명폴더'
-                for (int i = 0; i < _heroNameList.Count; i++)
+
+                // 캐릭터 별 보스 정보 저장
+                string fileName = _fileName + "Boss.txt";
+                string savePath2 = Path.Combine(savePath, fileName);
+
+                using (StreamWriter sw = new StreamWriter(savePath2))
                 {
-                    // 해당 캐릭터의 보스 정보 저장
-                    string savePath2 = savePath + "boss.txt"; // '메인폴더\\파일명폴더\\파일명boss.txt'
-                    using (StreamWriter sw = new StreamWriter(savePath2))
+                    for (int j = 0; j < _middleBossList.Count; j++)
                     {
-                        for (int j = 0; j < _middleBossList.Count; j++)
-                        {
-                            string concatString = string.Join(" ", _middleBossList[j]);
-                            sw.Write(concatString + "\n"); // string[] 형태로 이루어진 데이터를 한줄씩 텍스트 파일에 기록
-                        }
-                        sw.Close();
+                        string concatString = string.Join(",", _middleBossList[j]);
+                        sw.Write(concatString + "\n"); // string[] 형태로 이루어진 데이터를 한줄씩 텍스트 파일에 기록
+                    }
+                    sw.Close();
+                }
+
+                // 해당 캐릭터의 장비메모 정보 저장
+                /*
+                string savePath4 = Path.Combine(savePath2, "item.txt"); // '메인폴더\\파일명폴더\\캐릭터명item.txt'
+                using (StreamWriter sw = new StreamWriter(savePath4))
+                {
+
+                    for (int j = 0; j < _middleBossList.Count; j++)
+                    {
+                        sw.Write(_middleBossList[j] + "\n");
                     }
 
-                    // 해당 캐릭터의 장비메모 정보 저장
-                    /*
-                    string savePath4 = Path.Combine(savePath2, "item.txt"); // '메인폴더\\파일명폴더\\캐릭터명item.txt'
-                    using (StreamWriter sw = new StreamWriter(savePath4))
-                    {
-                        
-                        for (int j = 0; j < _middleBossList.Count; j++)
-                        {
-                            sw.Write(_middleBossList[j] + "\n");
-                        }
-                        
-                        sw.Close();
-                    }
-                    */
+                    sw.Close();
                 }
+                */
+
                 MessageBox.Show("저장되었습니다.");
             }
             else

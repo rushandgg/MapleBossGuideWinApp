@@ -115,6 +115,8 @@ namespace MapleBossWinApp
             //
             heroNameList.Add(characterName);
 
+            currentCharacter = characterName;
+            heroListViewRow = HeroListView.Items.Count - 1;
             // 추가한 정보를 바탕으로 DataGridView 보스 목록 표시, 표시한 데이터를 List에 저장
             SaveMiddleBossData(characterName, maxBossName, maxBossDifficulty);
         }
@@ -240,7 +242,7 @@ namespace MapleBossWinApp
                 int selectRow = HeroListView.SelectedItems[0].Index;
                 string characterName = HeroListView.Items[selectRow].SubItems[1].Text; // 캐릭터 명
                 currentCharacter = characterName;
-
+                heroListViewRow = selectRow;
                 List<string[]> filteredList = middleBossList.Where(array => array.Contains(characterName)).ToList();
 
                 foreach (string[] array in filteredList)
@@ -305,7 +307,7 @@ namespace MapleBossWinApp
                 // 수정한 데이터를 들고있는 List에 반영한다.
                 for (int i = 0; i < middleBossList.Count; i++)
                 {
-                    if (middleBossList[i].Contains(characterName) && middleBossList[i].Contains(bossName) && middleBossList[i].Contains(difficulty))
+                    if (middleBossList[i][0].Equals(characterName) && middleBossList[i][1].Equals(bossName))
                     {
                         middleBossList[i][2] = difficulty;
                         middleBossList[i][3] = partyNum.ToString();
@@ -313,7 +315,6 @@ namespace MapleBossWinApp
                         break;
                     }
                 }
-
                 UpdateTotalLabel();
             }
         }
@@ -419,6 +420,25 @@ namespace MapleBossWinApp
             createData.TotalHeroData(mainFolderPath, fileName, HeroListView); // 1. 저장할 폴더 생성, 2. 캐릭터 목록 데이터 생성
 
             createData.MiddleBossData(mainFolderPath, fileName, heroNameList, middleBossList); // 3. 세부 보스 데이터 생성
+        }
+
+        private void DeleteListBtn_Click(object sender, EventArgs e)
+        {   // 삭제 버튼을 누르면 캐릭터 목록에서 해당 캐릭터 정보 삭제
+            // HeroListView, heroNameList, middleBossList에서 삭제
+
+            if (HeroListView.SelectedItems.Count != 0)
+            {
+                HeroListView.Items.RemoveAt(heroListViewRow);
+
+                heroNameList.RemoveAt(heroListViewRow);
+
+                string characterName = HeroListView.Items[heroListViewRow].SubItems[1].Text;
+                middleBossList.RemoveAll(item => item.Length > 0 && item[0] == characterName);
+            }
+            else
+            {
+                MessageBox.Show("삭제할 데이터가 없습니다.");
+            }
         }
     }
 }

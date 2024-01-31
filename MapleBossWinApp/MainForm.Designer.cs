@@ -74,13 +74,15 @@
             TotalHeroCountLabel = new System.Windows.Forms.Label();
             TotalPriceLabel = new System.Windows.Forms.Label();
             groupBox2 = new System.Windows.Forms.GroupBox();
+            DeleteListBtn = new System.Windows.Forms.Button();
+            SavaFileNameTextBox = new System.Windows.Forms.TextBox();
             label8 = new System.Windows.Forms.Label();
             SaveDataButton = new System.Windows.Forms.Button();
             DifficultyComboBox = new System.Windows.Forms.ComboBox();
             BossNameComboBox = new System.Windows.Forms.ComboBox();
             label2 = new System.Windows.Forms.Label();
             HeroTextBox = new System.Windows.Forms.TextBox();
-            ListAddBtn = new System.Windows.Forms.Button();
+            AddListBtn = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
             HeroListView = new System.Windows.Forms.ListView();
@@ -111,7 +113,6 @@
             ListButton = new System.Windows.Forms.Button();
             ManageButton = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
-            SavaFileNameTextBox = new System.Windows.Forms.TextBox();
             MainTabControl.SuspendLayout();
             TabPage1.SuspendLayout();
             TabPage2.SuspendLayout();
@@ -513,7 +514,7 @@
             groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBox3.Size = new System.Drawing.Size(618, 133);
+            groupBox3.Size = new System.Drawing.Size(618, 75);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "집계";
@@ -521,7 +522,7 @@
             // TotalBossCountLabel
             // 
             TotalBossCountLabel.AutoSize = true;
-            TotalBossCountLabel.Location = new System.Drawing.Point(201, 63);
+            TotalBossCountLabel.Location = new System.Drawing.Point(205, 31);
             TotalBossCountLabel.Name = "TotalBossCountLabel";
             TotalBossCountLabel.Size = new System.Drawing.Size(87, 20);
             TotalBossCountLabel.TabIndex = 2;
@@ -530,7 +531,7 @@
             // TotalHeroCountLabel
             // 
             TotalHeroCountLabel.AutoSize = true;
-            TotalHeroCountLabel.Location = new System.Drawing.Point(15, 63);
+            TotalHeroCountLabel.Location = new System.Drawing.Point(19, 31);
             TotalHeroCountLabel.Name = "TotalHeroCountLabel";
             TotalHeroCountLabel.Size = new System.Drawing.Size(102, 20);
             TotalHeroCountLabel.TabIndex = 1;
@@ -539,7 +540,7 @@
             // TotalPriceLabel
             // 
             TotalPriceLabel.AutoSize = true;
-            TotalPriceLabel.Location = new System.Drawing.Point(401, 63);
+            TotalPriceLabel.Location = new System.Drawing.Point(405, 31);
             TotalPriceLabel.Name = "TotalPriceLabel";
             TotalPriceLabel.Size = new System.Drawing.Size(72, 20);
             TotalPriceLabel.TabIndex = 0;
@@ -547,6 +548,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(DeleteListBtn);
             groupBox2.Controls.Add(SavaFileNameTextBox);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(SaveDataButton);
@@ -554,7 +556,7 @@
             groupBox2.Controls.Add(BossNameComboBox);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(HeroTextBox);
-            groupBox2.Controls.Add(ListAddBtn);
+            groupBox2.Controls.Add(AddListBtn);
             groupBox2.Controls.Add(label1);
             groupBox2.Location = new System.Drawing.Point(19, 28);
             groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -564,6 +566,25 @@
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "보스 내용기입";
+            // 
+            // DeleteListBtn
+            // 
+            DeleteListBtn.Location = new System.Drawing.Point(545, 87);
+            DeleteListBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            DeleteListBtn.Name = "DeleteListBtn";
+            DeleteListBtn.Size = new System.Drawing.Size(87, 29);
+            DeleteListBtn.TabIndex = 10;
+            DeleteListBtn.Text = "삭제";
+            DeleteListBtn.UseVisualStyleBackColor = true;
+            DeleteListBtn.Click += DeleteListBtn_Click;
+            // 
+            // SavaFileNameTextBox
+            // 
+            SavaFileNameTextBox.Location = new System.Drawing.Point(649, 48);
+            SavaFileNameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            SavaFileNameTextBox.Name = "SavaFileNameTextBox";
+            SavaFileNameTextBox.Size = new System.Drawing.Size(136, 27);
+            SavaFileNameTextBox.TabIndex = 9;
             // 
             // label8
             // 
@@ -579,7 +600,7 @@
             SaveDataButton.Location = new System.Drawing.Point(673, 87);
             SaveDataButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             SaveDataButton.Name = "SaveDataButton";
-            SaveDataButton.Size = new System.Drawing.Size(112, 27);
+            SaveDataButton.Size = new System.Drawing.Size(112, 29);
             SaveDataButton.TabIndex = 7;
             SaveDataButton.Text = "저장";
             SaveDataButton.UseVisualStyleBackColor = true;
@@ -588,7 +609,7 @@
             // DifficultyComboBox
             // 
             DifficultyComboBox.FormattingEnabled = true;
-            DifficultyComboBox.Location = new System.Drawing.Point(325, 87);
+            DifficultyComboBox.Location = new System.Drawing.Point(302, 87);
             DifficultyComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             DifficultyComboBox.Name = "DifficultyComboBox";
             DifficultyComboBox.Size = new System.Drawing.Size(131, 28);
@@ -598,7 +619,7 @@
             // BossNameComboBox
             // 
             BossNameComboBox.FormattingEnabled = true;
-            BossNameComboBox.Location = new System.Drawing.Point(186, 87);
+            BossNameComboBox.Location = new System.Drawing.Point(163, 87);
             BossNameComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             BossNameComboBox.Name = "BossNameComboBox";
             BossNameComboBox.Size = new System.Drawing.Size(131, 28);
@@ -609,7 +630,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(183, 63);
+            label2.Location = new System.Drawing.Point(160, 63);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(130, 20);
             label2.TabIndex = 3;
@@ -624,16 +645,16 @@
             HeroTextBox.TabIndex = 2;
             HeroTextBox.Text = "신용왕미수";
             // 
-            // ListAddBtn
+            // AddListBtn
             // 
-            ListAddBtn.Location = new System.Drawing.Point(475, 87);
-            ListAddBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            ListAddBtn.Name = "ListAddBtn";
-            ListAddBtn.Size = new System.Drawing.Size(112, 29);
-            ListAddBtn.TabIndex = 1;
-            ListAddBtn.Text = "추가";
-            ListAddBtn.UseVisualStyleBackColor = true;
-            ListAddBtn.Click += ListAddBtn_Click;
+            AddListBtn.Location = new System.Drawing.Point(452, 87);
+            AddListBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            AddListBtn.Name = "AddListBtn";
+            AddListBtn.Size = new System.Drawing.Size(87, 29);
+            AddListBtn.TabIndex = 1;
+            AddListBtn.Text = "추가";
+            AddListBtn.UseVisualStyleBackColor = true;
+            AddListBtn.Click += ListAddBtn_Click;
             // 
             // label1
             // 
@@ -842,14 +863,6 @@
             label3.TabIndex = 11;
             label3.Text = "제작자 : 루나 신용왕미수";
             // 
-            // SavaFileNameTextBox
-            // 
-            SavaFileNameTextBox.Location = new System.Drawing.Point(649, 48);
-            SavaFileNameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            SavaFileNameTextBox.Name = "SavaFileNameTextBox";
-            SavaFileNameTextBox.Size = new System.Drawing.Size(136, 27);
-            SavaFileNameTextBox.TabIndex = 9;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -894,7 +907,7 @@
         private System.Windows.Forms.ComboBox BossNameComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox HeroTextBox;
-        private System.Windows.Forms.Button ListAddBtn;
+        private System.Windows.Forms.Button AddListBtn;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.ListView HeroListView;
@@ -967,6 +980,7 @@
         private System.Windows.Forms.Button SaveDataButton;
         public System.Windows.Forms.ComboBox SaveFileListComboBox;
         private System.Windows.Forms.TextBox SavaFileNameTextBox;
+        private System.Windows.Forms.Button DeleteListBtn;
     }
 }
 
